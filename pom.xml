@@ -9,13 +9,13 @@
 	<packaging>jar</packaging>
 
 	<name>problem-off</name>
-	<description>Backend web service problem-off</description>
+	<description>Backend problem-off</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.8.RELEASE</version>
-		<relativePath/>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
