@@ -2,10 +2,7 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -13,7 +10,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "userdetails")
+@Entity
 public class User {
     @Id
     @GeneratedValue
@@ -28,6 +25,7 @@ public class User {
     private String lastName;
     @Column(nullable = false)
     private String phoneNumber;
+    @ManyToOne
     private UserSex sex;
     private Date dateBirthday;
     private String description;
