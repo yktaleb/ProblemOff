@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Getter
@@ -25,9 +26,13 @@ public class User {
     private String lastName;
     @Column(nullable = false)
     private String phoneNumber;
-    @ManyToOne
-    private UserSex sex;
     private Date dateBirthday;
     private String description;
     private Address address;
+
+    @ManyToOne
+    private UserSex sex;
+
+    @ManyToMany
+    private Set<Role> roles;
 }
