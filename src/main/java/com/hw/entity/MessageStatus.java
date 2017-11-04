@@ -12,9 +12,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Address {
+public class MessageStatus {
     @Id
     @GeneratedValue
     private Long id;
-    private String apartmentNumber;
 }

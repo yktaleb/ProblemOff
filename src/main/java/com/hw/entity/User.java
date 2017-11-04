@@ -35,4 +35,10 @@ public class User {
 
     @ManyToMany
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Service> services;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Notification> notifications;
 }

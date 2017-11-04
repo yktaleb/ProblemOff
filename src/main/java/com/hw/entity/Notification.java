@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Data
 @Getter
@@ -12,9 +14,15 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Address {
+public class Notification {
     @Id
     @GeneratedValue
     private Long id;
-    private String apartmentNumber;
+    private String value;
+    private Date dateOfCome;
+
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private NotificationStatus notificationStatus;
 }

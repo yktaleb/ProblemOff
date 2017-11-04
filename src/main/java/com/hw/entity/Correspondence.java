@@ -12,9 +12,11 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Address {
+public class Correspondence {
     @Id
     @GeneratedValue
     private Long id;
-    private String apartmentNumber;
+
+    private User firstInterlocutor;
+    private User secondInterlocutor;
 }
