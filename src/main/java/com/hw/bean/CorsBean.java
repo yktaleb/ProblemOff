@@ -17,7 +17,7 @@ public class CorsBean {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                         .addMapping("/**")
-                        .allowedOrigins("https://problem-off.firebaseapp.com");
+                        .allowedOrigins("*");
             }
         };
     }
