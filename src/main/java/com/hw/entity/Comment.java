@@ -20,7 +20,7 @@ public class Comment {
 
     @ManyToOne
     private User receiver;
-    @OneToOne
+    @ManyToOne
     private User author;
     @ManyToOne
     private CommentMark commentMark;

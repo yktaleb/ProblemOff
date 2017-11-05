@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +16,10 @@ public class Region {
     @GeneratedValue
     private Long id;
     private String name;
+
+    @ManyToMany(mappedBy = "regions")
+    private Set<Service> services;
+
+    @OneToMany(mappedBy = "region")
+    private Set<Location> locations;
 }

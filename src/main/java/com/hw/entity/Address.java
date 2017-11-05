@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +16,13 @@ public class Address {
     @GeneratedValue
     private Long id;
     private String apartmentNumber;
+
+    @OneToMany(mappedBy = "address")
+    private User user;
+
+    @OneToMany(mappedBy = "address")
+    private Set<Task> tasks;
+
+    @ManyToOne
+    private Location location;
 }

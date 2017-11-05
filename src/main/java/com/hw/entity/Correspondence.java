@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,6 +16,12 @@ public class Correspondence {
     @GeneratedValue
     private Long id;
 
-    private User firstInterlocutor;
-    private User secondInterlocutor;
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private User interlocutor;
+
+    @OneToMany(mappedBy = "correspondence")
+    private Set<Message> messages;
 }

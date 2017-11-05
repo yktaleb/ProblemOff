@@ -2,10 +2,9 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Getter
@@ -20,4 +19,22 @@ public class Task {
     private String description;
     private Date dateOfFinish;
     private String price;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Type type;
+
+    @OneToOne
+    private TaskInstance taskInstance;
+
+    @OneToMany(mappedBy = "task")
+    private Set<TaskOrder> taskOrders;
+
+    @ManyToOne
+    private Address address;
+
+    @ManyToOne
+    private TaskStatus taskStatus;
 }

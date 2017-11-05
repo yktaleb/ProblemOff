@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +16,13 @@ public class Type {
     @GeneratedValue
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "type")
+    private Set<Service> services;
+
+    @ManyToOne
+    private TypeClass typeClass;
+
+    @OneToMany(mappedBy = "type")
+    private Set<Task> tasks;
 }

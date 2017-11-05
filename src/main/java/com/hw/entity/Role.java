@@ -19,6 +19,6 @@ public class Role {
     @GeneratedValue
     private Long id;
     private String name;
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 }

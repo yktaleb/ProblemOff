@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +16,10 @@ public class Location {
     @GeneratedValue
     private Long id;
     private String googlePlaceId;
+
+    @OneToMany(mappedBy = "location")
+    private Set<Address> addresses;
+
+    @ManyToOne
+    private Region region;
 }

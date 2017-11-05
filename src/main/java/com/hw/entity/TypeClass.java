@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +16,13 @@ public class TypeClass {
     @GeneratedValue
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "typeClass")
+    private Set<Type> types;
+
+    @ManyToOne
+    private Set<TypeClass> subClasses;
+
+    @OneToMany(mappedBy = "subClasses")
+    private TypeClass superClass;
 }

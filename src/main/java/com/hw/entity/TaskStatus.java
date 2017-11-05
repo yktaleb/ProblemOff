@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Data
 @Getter
@@ -12,8 +14,12 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TaskClose {
+public class TaskStatus {
     @Id
     @GeneratedValue
     private Long id;
+    private String value;
+
+    @OneToMany(mappedBy = "taskStatus")
+    private Set<Task> tasks;
 }

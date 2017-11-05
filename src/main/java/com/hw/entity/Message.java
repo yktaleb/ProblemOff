@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Data
@@ -19,4 +20,11 @@ public class Message {
     private Long id;
     private Date dateOfCome;
     private String context;
+    private Boolean isRead;
+
+    @ManyToOne
+    private Correspondence correspondence;
+
+    @ManyToOne
+    private MessageStatus messageStatus;
 }

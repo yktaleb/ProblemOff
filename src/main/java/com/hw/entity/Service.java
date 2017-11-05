@@ -19,6 +19,9 @@ public class Service {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToMany
     private Set<Region> regions;
+
+    @ManyToOne
+    private Type type;
 }

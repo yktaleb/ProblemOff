@@ -2,9 +2,8 @@ package com.hw.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +16,7 @@ public class TaskMark {
     @GeneratedValue
     private Long id;
     private String value;
+
+    @OneToMany(mappedBy = "taskMark")
+    private Set<TaskInstance> taskInstances;
 }

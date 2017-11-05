@@ -18,7 +18,7 @@ public class UserSex {
     @Id
     @GeneratedValue
     private Long id;
-    private String value;
+    private String name;
     @OneToMany(mappedBy = "sex")
     private Set<User> users;
 }

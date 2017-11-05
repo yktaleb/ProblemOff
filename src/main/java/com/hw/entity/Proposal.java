@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Data
 @Getter
@@ -17,4 +19,7 @@ public class Proposal {
     @GeneratedValue
     private Long id;
     private String value;
+
+    @OneToMany(mappedBy = "proposal")
+    private Set<TaskOrder> taskOrders;
 }
