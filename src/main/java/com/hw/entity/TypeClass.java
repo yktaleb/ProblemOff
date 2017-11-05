@@ -20,9 +20,9 @@ public class TypeClass {
     @OneToMany(mappedBy = "typeClass")
     private Set<Type> types;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "superClass")
     private Set<TypeClass> subClasses;
 
-    @OneToMany(mappedBy = "subClasses")
+    @ManyToOne
     private TypeClass superClass;
 }

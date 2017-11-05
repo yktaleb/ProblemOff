@@ -18,7 +18,7 @@ public class Address {
     private String apartmentNumber;
 
     @OneToMany(mappedBy = "address")
-    private User user;
+    private Set<User> user;
 
     @OneToMany(mappedBy = "address")
     private Set<Task> tasks;

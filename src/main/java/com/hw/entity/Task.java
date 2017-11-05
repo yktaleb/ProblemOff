@@ -26,7 +26,7 @@ public class Task {
     @ManyToOne
     private Type type;
 
-    @OneToOne
+    @OneToOne(mappedBy = "task")
     private TaskInstance taskInstance;
 
     @OneToMany(mappedBy = "task")
