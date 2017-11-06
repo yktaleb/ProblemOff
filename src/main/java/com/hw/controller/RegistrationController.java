@@ -1,6 +1,6 @@
 package com.hw.controller;
 
-import com.hw.entity.User;
+import com.hw.model.entity.User;
 import com.hw.exception.UserAlreadyExists;
 import com.hw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 

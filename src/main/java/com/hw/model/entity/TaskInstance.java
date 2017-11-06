@@ -1,9 +1,8 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Getter
@@ -11,7 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Correspondence {
+public class TaskInstance {
     @Id
     @GeneratedValue
     private Long id;
@@ -19,9 +18,10 @@ public class Correspondence {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private User interlocutor;
+    @OneToOne
+    private Task task;
 
-    @OneToMany(mappedBy = "correspondence")
-    private Set<Message> messages;
+    @ManyToOne
+    private TaskMark taskMark;
+
 }

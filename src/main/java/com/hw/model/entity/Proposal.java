@@ -1,4 +1,4 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
@@ -14,12 +14,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CommentMark {
+public class Proposal {
     @Id
     @GeneratedValue
     private Long id;
     private String value;
 
-    @OneToMany(mappedBy = "commentMark")
-    private Set<Comment> comments;
+    @OneToMany(mappedBy = "proposal")
+    private Set<TaskOrder> taskOrders;
 }

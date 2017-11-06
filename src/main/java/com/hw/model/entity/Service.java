@@ -1,8 +1,9 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Getter
@@ -10,18 +11,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TaskInstance {
+public class Service {
     @Id
     @GeneratedValue
     private Long id;
-
+    private String description;
     @ManyToOne
     private User user;
 
-    @OneToOne
-    private Task task;
+    @ManyToMany
+    private Set<Region> regions;
 
     @ManyToOne
-    private TaskMark taskMark;
-
+    private Type type;
 }

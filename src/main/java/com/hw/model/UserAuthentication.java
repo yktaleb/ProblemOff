@@ -1,0 +1,59 @@
+package com.hw.model;
+
+import com.hw.model.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserAuthentication implements Authentication{
+
+    private User user;
+    private boolean authenticated = true;
+
+    public UserAuthentication(@NotNull User user) {
+        this.user = user;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return user.getAuthorities();
+    }
+
+    @Override
+    public Object getCredentials() {
+        return user.getPassword();
+    }
+
+    @Override
+    public Object getDetails() {
+        return user;
+    }
+
+    @Override
+    public Object getPrincipal() {
+        return user;
+    }
+
+    @Override
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
+
+    @Override
+    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+        authenticated = isAuthenticated;
+    }
+
+    @Override
+    public String getName() {
+        return user.getEmail();
+    }
+}

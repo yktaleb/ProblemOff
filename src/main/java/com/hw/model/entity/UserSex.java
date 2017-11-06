@@ -1,11 +1,11 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Data
@@ -14,11 +14,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Role {
+public class UserSex {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(mappedBy = "sex")
     private Set<User> users;
 }

@@ -1,4 +1,4 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
@@ -11,18 +11,15 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Type {
+public class Region {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "type")
+    @ManyToMany(mappedBy = "regions")
     private Set<Service> services;
 
-    @ManyToOne
-    private TypeClass typeClass;
-
-    @OneToMany(mappedBy = "type")
-    private Set<Task> tasks;
+    @OneToMany(mappedBy = "region")
+    private Set<Location> locations;
 }

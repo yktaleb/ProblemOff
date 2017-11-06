@@ -1,4 +1,4 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
@@ -11,17 +11,17 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Service {
+public class Correspondence {
     @Id
     @GeneratedValue
     private Long id;
-    private String description;
+
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    private Set<Region> regions;
-
     @ManyToOne
-    private Type type;
+    private User interlocutor;
+
+    @OneToMany(mappedBy = "correspondence")
+    private Set<Message> messages;
 }

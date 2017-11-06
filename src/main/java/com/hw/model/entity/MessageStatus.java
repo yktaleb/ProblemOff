@@ -1,11 +1,12 @@
-package com.hw.entity;
+package com.hw.model.entity;
 
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Data
 @Getter
@@ -13,17 +14,12 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TaskOrder {
+public class MessageStatus {
     @Id
     @GeneratedValue
     private Long id;
+    private String value;
 
-    @ManyToOne
-    private Task task;
-
-    @ManyToOne
-    private User user;
-
-    @ManyToOne
-    private Proposal proposal;
+    @OneToMany(mappedBy = "messageStatus")
+    private Set<Message> message;
 }
