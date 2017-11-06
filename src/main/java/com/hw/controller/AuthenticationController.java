@@ -33,6 +33,9 @@ public class AuthenticationController {
         try {
             user = (User) userService.loadUserByUsername(email);
             if (user != null && user.getPassword().equals(password)) {
+                response.addHeader("X-Auth-Token",
+                        tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14))
+                );
                 response.setHeader(
                         "X-Auth-Token",
                         tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14))
