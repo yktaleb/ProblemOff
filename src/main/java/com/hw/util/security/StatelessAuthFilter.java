@@ -1,4 +1,4 @@
-package com.hw.filter;
+package com.hw.util.security;
 
 import com.hw.service.TokenAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class StatelessAuthFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(
-                tokenAuthService.getAuthenctication((HttpServletRequest) servletRequest).orElse(null)
+                tokenAuthService.getAuthentication((HttpServletRequest) servletRequest).orElse(null)
         );
         filterChain.doFilter(servletRequest, servletResponse);
     }

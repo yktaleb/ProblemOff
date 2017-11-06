@@ -1,4 +1,4 @@
-package com.hw.model;
+package com.hw.util.security;
 
 import com.hw.model.entity.User;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Data
@@ -18,7 +17,7 @@ public class UserAuthentication implements Authentication{
     private User user;
     private boolean authenticated = true;
 
-    public UserAuthentication(@NotNull User user) {
+    public UserAuthentication(User user) {
         this.user = user;
     }
 

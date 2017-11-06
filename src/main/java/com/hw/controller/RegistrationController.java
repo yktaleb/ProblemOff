@@ -1,7 +1,7 @@
 package com.hw.controller;
 
-import com.hw.model.entity.User;
 import com.hw.exception.UserAlreadyExists;
+import com.hw.model.entity.User;
 import com.hw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class RegistrationController {
     public ResponseEntity register(@RequestBody User user) {
 //        Map map = new HashMap();
 //        try {
-//            userService.register(user);
+//            userService.registerUser(user);
 //            map.put("status", HttpStatus.OK);
 //            map.put("message", "Successful registration");
 //            return map;
@@ -32,7 +32,7 @@ public class RegistrationController {
 //            return map;
 //        }
         try {
-            userService.register(user);
+            userService.registerUser(user);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(Collections.singletonMap("message", "Successful registration"));

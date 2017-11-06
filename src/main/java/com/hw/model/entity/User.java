@@ -1,5 +1,7 @@
 package com.hw.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +11,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class User implements UserDetails {
     @ManyToOne
     private UserSex sex;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "receiver")
@@ -72,6 +73,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override

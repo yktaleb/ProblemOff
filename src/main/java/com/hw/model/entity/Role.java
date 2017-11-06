@@ -1,15 +1,12 @@
 package com.hw.model.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,7 +17,8 @@ public class Role implements GrantedAuthority {
     @GeneratedValue
     private Long id;
     private String name;
-    @ManyToMany(mappedBy = "roles")
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users;
 
     @Override

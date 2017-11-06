@@ -1,4 +1,4 @@
-package com.hw.filter;
+package com.hw.util.security;
 
 import com.google.common.io.BaseEncoding;
 import io.jsonwebtoken.Claims;
@@ -25,7 +25,7 @@ public class TokenHandler {
         secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
     }
 
-    public Optional<Long> extractUserId(@NonNull String token) {
+    public Optional<Long> extractUserId(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             Claims body = claimsJws.getBody();
@@ -39,7 +39,7 @@ public class TokenHandler {
 
     }
 
-    public String generateAccessToken(@NonNull Long id, @NonNull LocalDateTime expires) {
+    public String generateAccessToken(Long id, LocalDateTime expires) {
         return Jwts.builder()
                 .setId(id.toString())
                 .setExpiration(Date.from(expires.atZone(ZoneId.systemDefault()).toInstant()))

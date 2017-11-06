@@ -1,6 +1,6 @@
 package com.hw.config;
 
-import com.hw.filter.StatelessAuthFilter;
+import com.hw.util.security.StatelessAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,11 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/readme.txt", "/css/*").permitAll()
                     .antMatchers("/register").permitAll()
+                    .antMatchers("/login").permitAll()
                     .antMatchers("/users/**").hasAuthority("USER_ROLE")
                 .anyRequest().authenticated()
-                .and()
-                    .formLogin()
-                        .loginPage("/login").permitAll()
                 .and()
                     .logout()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()

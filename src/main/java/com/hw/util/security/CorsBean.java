@@ -1,4 +1,4 @@
-package com.hw.bean;
+package com.hw.util.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
