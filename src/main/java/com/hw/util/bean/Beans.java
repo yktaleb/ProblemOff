@@ -19,12 +19,12 @@ public class Beans {
                 registry
                         .addMapping("/**")
                         .allowedOrigins("*")
-//                        .allowedHeaders("*")
-//                        .exposedHeaders("X-Auth-Token")
+                        .allowedHeaders("*")
+                        .exposedHeaders("X-Auth-Token");
 //                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
-                        .allowedHeaders("X-Auth-Token","Authorization","Access-Control-Allow-Origin","Access-Control-Allow-Credentials")
-                        .exposedHeaders("X-Auth-Token","Authorization","Access-Control-Allow-Origin","Access-Control-Allow-Credentials")
-                        .allowCredentials(false).maxAge(3600);
+//                        .allowedHeaders("X-Auth-Token","Authorization","Access-Control-Allow-Origin","Access-Control-Allow-Credentials")
+//                        .exposedHeaders("X-Auth-Token","Authorization","Access-Control-Allow-Origin","Access-Control-Allow-Credentials")
+//                        .allowCredentials(false).maxAge(3600);
             }
         };
     }
