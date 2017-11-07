@@ -15,22 +15,15 @@ import java.util.Collections;
 
 @RestController
 public class RegistrationController {
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody User user) {
-//        Map map = new HashMap();
-//        try {
-//            userService.registerUser(user);
-//            map.put("status", HttpStatus.OK);
-//            map.put("message", "Successful registration");
-//            return map;
-//        } catch (DataIntegrityViolationException e) {
-//            map.put("status", HttpStatus.BAD_REQUEST);
-//            map.put("message", e.getMessage());
-//            return map;
-//        }
         try {
             userService.registerUser(user);
             return ResponseEntity

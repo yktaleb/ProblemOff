@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +20,18 @@ import java.util.Collections;
 @RestController
 public class AuthenticationController {
 
-    @Autowired
-    private TokenHandler tokenHandler;
+    public static final String TOKEN_NAME = "X-Auth-Token";
+
+    private final TokenHandler tokenHandler;
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserService userService;
+    public AuthenticationController(TokenHandler tokenHandler, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.tokenHandler = tokenHandler;
+        this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @RequestMapping(name = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestParam String email,
@@ -32,12 +40,9 @@ public class AuthenticationController {
         User user = null;
         try {
             user = (User) userService.loadUserByUsername(email);
-            if (user != null && user.getPassword().equals(password)) {
-                response.addHeader("X-Auth-Token",
-                        tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14))
-                );
+            if (user != null && user.getPassword().equals(bCryptPasswordEncoder.encode(password))) {
                 response.setHeader(
-                        "X-Auth-Token",
+                        TOKEN_NAME,
                         tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14))
                 );
             }
