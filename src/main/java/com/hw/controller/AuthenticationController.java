@@ -37,22 +37,27 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestParam String email,
                                 @RequestParam String password,
                                 HttpServletResponse response) {
-        User user = null;
+        HttpStatus status = null;
+        String message = null;
         try {
-            user = (User) userService.loadUserByUsername(email);
-            if (user != null && user.getPassword().equals(bCryptPasswordEncoder.encode(password))) {
+            User user = (User) userService.loadUserByUsername(email);
+            if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
                 response.setHeader(
                         TOKEN_NAME,
                         tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14))
                 );
+                status = HttpStatus.OK;
+                message = "Successful authorization";
+            } else {
+                status = HttpStatus.BAD_REQUEST;
+                message = "Password is wrong";
             }
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(Collections.singletonMap("message", "Successful authorization"));
         } catch (UsernameNotFoundException exception) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("message", exception.getMessage()));
+            status = HttpStatus.BAD_REQUEST;
+            message = exception.getMessage();
         }
+        return ResponseEntity
+                .status(status)
+                .body(Collections.singletonMap("message", message));
     }
 }
