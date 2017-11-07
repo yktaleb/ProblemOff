@@ -34,14 +34,9 @@ public class Beans {
     public FilterRegistrationBean someFilterRegistration() {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(corsFilter());
-        registration.addUrlPatterns("/url/*");
+        registration.setFilter(new CORSFilter());
+        registration.addUrlPatterns("/*");
         registration.setName("corsFilter");
         return registration;
-    }
-
-    @Bean
-    public CORSFilter corsFilter() {
-        return new CORSFilter();
     }
 }

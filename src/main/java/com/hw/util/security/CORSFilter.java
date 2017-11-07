@@ -1,54 +1,44 @@
 package com.hw.util.security;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 /**
- * Enabling CORS support  - Access-Control-Allow-Origin
- * @author zeroows@gmail.com
+ * CORS Filter
  *
- * <code>
-<!-- Add this to your web.xml to enable "CORS" -->
-<filter>
-<filter-name>cors</filter-name>
-<filter-class>com.elm.mb.rest.filters.CORSFilter</filter-class>
-</filter>
-
-<filter-mapping>
-<filter-name>cors</filter-name>
-<url-pattern>/*</url-pattern>
-</filter-mapping>
- * </code>
+ * This filter is an implementation of W3C's CORS
+ * (Cross-Origin Resource Sharing) specification,
+ * which is a mechanism that enables cross-origin requests.
+ *
  */
-@Component
-public class CORSFilter extends OncePerRequestFilter {
-    private static final Log LOG = LogFactory.getLog(CORSFilter.class);
+//@Component
+public class CORSFilter extends GenericFilterBean implements Filter {
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-        if (request.getHeader("Access-Control-Request-Method") != null && "OPTIONS".equals(request.getMethod())) {
-            LOG.trace("Sending Header....");
-            // CORS "pre-flight" request
-            response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-			response.addHeader("Access-Control-Expose-Headers", "X-Auth-Token");
-            response.addHeader("Access-Control-Allow-Headers", "Content-Type");
-            response.addHeader("Access-Control-Max-Age", "10000");
-        }
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "*");
+//        httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 
-        filterChain.doFilter(request, response);
+        // XMLHttpRequest cannot load http://localhost:8080/api.
+        // Request header field Authorization is not allowed by Access-Control-Allow-Headers in preflight response.
+//        httpResponse.setHeader("Access-Control-Allow-Headers", "*");
+        httpResponse.setHeader("Access-Control-Allow-Headers",
+                "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-Csrf-Token, Authorization");
+
+        httpResponse.setHeader("Access-Control-Allow-Credentials", "false");
+        httpResponse.setHeader("Access-Control-Max-Age", "3600");
+
+        chain.doFilter(request, response);
     }
+
 
 }
 
