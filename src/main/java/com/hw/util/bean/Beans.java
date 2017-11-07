@@ -18,7 +18,8 @@ public class Beans {
                 registry
                         .addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedHeaders("*");
+//                        .allowedHeaders("*")
+                        .exposedHeaders("X-Auth-Token");
             }
         };
     }

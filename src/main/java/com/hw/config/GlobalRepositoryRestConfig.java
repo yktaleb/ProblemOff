@@ -12,7 +12,8 @@ public class GlobalRepositoryRestConfig extends RepositoryRestConfigurerAdapter 
         config.getCorsRegistry()
                 .addMapping("/**")
                 .allowedOrigins("*")
-                .allowedHeaders("*");
+//                .allowedHeaders("*")
+                .exposedHeaders("X-Auth-Token");
 //                .allowedMethods(ALLOWED_METHODS);
     }
 
