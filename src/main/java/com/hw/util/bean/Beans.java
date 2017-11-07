@@ -17,7 +17,8 @@ public class Beans {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                         .addMapping("/**")
-                        .allowedOrigins("*");
+                        .allowedOrigins("*")
+                        .allowedHeaders("X-Auth-Token");
             }
         };
     }
