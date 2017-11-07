@@ -19,7 +19,8 @@ public class Beans {
                         .addMapping("/**")
                         .allowedOrigins("*")
 //                        .allowedHeaders("*")
-                        .exposedHeaders("X-Auth-Token");
+                        .exposedHeaders("X-Auth-Token")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
         };
     }

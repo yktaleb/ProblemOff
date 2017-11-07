@@ -1,8 +1,8 @@
 package com.hw.service.impl;
 
 import com.hw.exception.UserAlreadyExists;
-import com.hw.model.entity.Role;
-import com.hw.model.entity.User;
+import com.hw.model.Role;
+import com.hw.model.User;
 import com.hw.repository.RoleRepository;
 import com.hw.repository.UserRepository;
 import com.hw.service.UserService;

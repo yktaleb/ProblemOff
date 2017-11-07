@@ -1,6 +1,5 @@
-package com.hw.model.entity;
+package com.hw.model;
 
-import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 

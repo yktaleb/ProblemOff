@@ -13,8 +13,8 @@ public class GlobalRepositoryRestConfig extends RepositoryRestConfigurerAdapter 
                 .addMapping("/**")
                 .allowedOrigins("*")
 //                .allowedHeaders("*")
-                .exposedHeaders("X-Auth-Token");
-//                .allowedMethods(ALLOWED_METHODS);
+                .exposedHeaders("X-Auth-Token")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 
 }

@@ -1,12 +1,12 @@
-package com.hw.model.entity;
+package com.hw.model;
 
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.util.Date;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Data
 @Getter
@@ -14,15 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Notification {
+public class NotificationStatus {
     @Id
     @GeneratedValue
     private Long id;
     private String value;
-    private Date dateOfCome;
 
-    @ManyToOne
-    private User user;
-    @ManyToOne
-    private NotificationStatus notificationStatus;
+    @OneToMany(mappedBy = "notificationStatus")
+    private Set<Notification> notifications;
 }

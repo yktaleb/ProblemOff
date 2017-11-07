@@ -1,4 +1,4 @@
-package com.hw.model.entity;
+package com.hw.model;
 
 import lombok.*;
 
@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Data
 @Getter
@@ -13,17 +14,17 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TaskOrder {
+public class Message {
     @Id
     @GeneratedValue
     private Long id;
+    private Date dateOfCome;
+    private String context;
+    private Boolean isRead;
 
     @ManyToOne
-    private Task task;
+    private Correspondence correspondence;
 
     @ManyToOne
-    private User user;
-
-    @ManyToOne
-    private Proposal proposal;
+    private MessageStatus messageStatus;
 }

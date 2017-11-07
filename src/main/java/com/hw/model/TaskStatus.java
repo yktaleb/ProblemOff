@@ -1,4 +1,4 @@
-package com.hw.model.entity;
+package com.hw.model;
 
 import lombok.*;
 
@@ -14,12 +14,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class NotificationStatus {
+public class TaskStatus {
     @Id
     @GeneratedValue
     private Long id;
     private String value;
 
-    @OneToMany(mappedBy = "notificationStatus")
-    private Set<Notification> notifications;
+    @OneToMany(mappedBy = "taskStatus")
+    private Set<Task> tasks;
 }

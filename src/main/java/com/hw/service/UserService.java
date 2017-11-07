@@ -1,12 +1,10 @@
 package com.hw.service;
 
 import com.hw.exception.UserAlreadyExists;
-import com.hw.model.entity.User;
+import com.hw.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserService extends UserDetailsService {
     void registerUser(User user) throws UserAlreadyExists;

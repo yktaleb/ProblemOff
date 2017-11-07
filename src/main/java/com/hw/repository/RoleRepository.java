@@ -1,7 +1,6 @@
 package com.hw.repository;
 
-import com.hw.model.entity.Role;
-import com.hw.model.entity.User;
+import com.hw.model.Role;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

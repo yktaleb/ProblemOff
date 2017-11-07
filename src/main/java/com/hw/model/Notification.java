@@ -1,4 +1,4 @@
-package com.hw.model.entity;
+package com.hw.model;
 
 import lombok.*;
 
@@ -14,17 +14,15 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Message {
+public class Notification {
     @Id
     @GeneratedValue
     private Long id;
+    private String value;
     private Date dateOfCome;
-    private String context;
-    private Boolean isRead;
 
     @ManyToOne
-    private Correspondence correspondence;
-
+    private User user;
     @ManyToOne
-    private MessageStatus messageStatus;
+    private NotificationStatus notificationStatus;
 }

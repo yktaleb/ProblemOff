@@ -1,6 +1,6 @@
 package com.hw.util.security;
 
-import com.hw.model.entity.User;
+import com.hw.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

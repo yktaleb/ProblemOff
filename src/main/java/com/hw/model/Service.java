@@ -1,4 +1,4 @@
-package com.hw.model.entity;
+package com.hw.model;
 
 import lombok.*;
 
@@ -11,15 +11,17 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Location {
+public class Service {
     @Id
     @GeneratedValue
     private Long id;
-    private String googlePlaceId;
+    private String description;
+    @ManyToOne
+    private User user;
 
-    @OneToMany(mappedBy = "location")
-    private Set<Address> addresses;
+    @ManyToMany
+    private Set<Region> regions;
 
     @ManyToOne
-    private Region region;
+    private Type type;
 }
