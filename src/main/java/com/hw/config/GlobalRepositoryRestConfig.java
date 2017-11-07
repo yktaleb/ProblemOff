@@ -7,14 +7,14 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 @Configuration
 public class GlobalRepositoryRestConfig extends RepositoryRestConfigurerAdapter {
 
-    @Override
-    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.getCorsRegistry()
-                .addMapping("/**")
-                .allowedOrigins("*")
-//                .allowedHeaders("*")
-                .exposedHeaders("X-Auth-Token")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
-    }
+//    @Override
+//    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+//        config.getCorsRegistry()
+//                .addMapping("/**")
+//                .allowedOrigins("*")
+////                .allowedHeaders("*")
+//                .exposedHeaders("X-Auth-Token")
+//                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+//    }
 
 }
