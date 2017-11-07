@@ -3,6 +3,7 @@ package com.hw.util.bean;
 import com.hw.util.security.CORSFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +40,7 @@ public class Beans {
         return registration;
     }
 
+    @Bean
     public CORSFilter corsFilter() {
         return new CORSFilter();
     }
