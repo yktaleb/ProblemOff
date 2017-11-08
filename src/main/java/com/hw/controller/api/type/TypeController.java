@@ -17,7 +17,7 @@ public class TypeController {
     @Autowired
     private TypeService typeService;
 
-    @RequestMapping(value = "/{id}/category/{categoryId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/category/{categoryId}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity setCategory(@PathVariable Long id,
                                   @PathVariable Long categoryId,
