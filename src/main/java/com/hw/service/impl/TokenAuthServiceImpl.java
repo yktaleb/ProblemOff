@@ -25,6 +25,7 @@ public class TokenAuthServiceImpl implements TokenAuthService {
     }
 
     public Optional<Authentication> getAuthentication(HttpServletRequest request) {
+
         return Optional
                 .ofNullable(request.getHeader(AUTH_HEADER_NAME))
                 .flatMap(tokenHandler::extractUserId)
