@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Set;
 
-@Data
 @Getter
 @Setter
 @AllArgsConstructor

@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
