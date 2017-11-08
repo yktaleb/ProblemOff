@@ -1,17 +1,21 @@
 package com.hw.service.category;
 
 import com.hw.model.Category;
+import com.hw.model.Type;
 import com.hw.repository.CategoryRepository;
+import com.hw.service.type.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private TypeService typeService;
 
     @Override
     public Set<Category> findAllMainCategories() {
@@ -55,5 +59,20 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findOne(id);
         category.setSuperCategory(null);
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category addType(Long id, Type type) {
+        Category category = categoryRepository.findOne(id);
+        type.setCategory(category);
+        typeService.save(type);
+        return category;
+    }
+
+    @Override
+    public Category addType(Long id, Long typeId) {
+        Category category = categoryRepository.findOne(id);
+        typeService.setCategory(typeId, id);
+        return category;
     }
 }

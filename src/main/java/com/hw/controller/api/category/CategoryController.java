@@ -1,7 +1,9 @@
-package com.hw.controller.datarest;
+package com.hw.controller.api.category;
 
 import com.hw.model.Category;
+import com.hw.model.Type;
 import com.hw.service.category.CategoryService;
+import com.hw.service.type.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -13,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
-@RequestMapping("categories")
+@RequestMapping("api/categories")
 public class CategoryController {
 
     @Autowired
@@ -75,6 +77,26 @@ public class CategoryController {
                                       PersistentEntityResourceAssembler assembler) {
         return ResponseEntity.ok(
                 assembler.toFullResource(categoryService.alterToMain(id))
+        );
+    }
+
+    @RequestMapping(value = "/{id}/types", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity addType(@PathVariable Long id,
+                                  @RequestBody Type type,
+                                  PersistentEntityResourceAssembler assembler) {
+        return ResponseEntity.ok(
+                assembler.toFullResource(categoryService.addType(id, type))
+        );
+    }
+
+    @RequestMapping(value = "/{id}/types/{typeId}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity addType(@PathVariable Long id,
+                                  @PathVariable Long typeId,
+                                  PersistentEntityResourceAssembler assembler) {
+        return ResponseEntity.ok(
+                assembler.toFullResource(categoryService.addType(id, typeId))
         );
     }
 }
