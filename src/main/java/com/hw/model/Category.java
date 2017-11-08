@@ -11,18 +11,18 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TypeClass {
+public class Category {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "typeClass")
+    @OneToMany(mappedBy = "category")
     private Set<Type> types;
 
-    @OneToMany(mappedBy = "superClass")
-    private Set<TypeClass> subClasses;
+    @OneToMany(mappedBy = "superCategory")
+    private Set<Category> subCategory;
 
     @ManyToOne
-    private TypeClass superClass;
+    private Category superCategory;
 }

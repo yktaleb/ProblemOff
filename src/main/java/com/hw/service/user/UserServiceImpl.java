@@ -1,11 +1,11 @@
-package com.hw.service.impl;
+package com.hw.service.user;
 
 import com.hw.exception.UserAlreadyExists;
 import com.hw.model.Role;
 import com.hw.model.User;
 import com.hw.repository.RoleRepository;
 import com.hw.repository.UserRepository;
-import com.hw.service.UserService;
+import com.hw.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetails;

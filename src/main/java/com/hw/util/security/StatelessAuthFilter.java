@@ -1,6 +1,6 @@
 package com.hw.util.security;
 
-import com.hw.service.TokenAuthService;
+import com.hw.service.util.TokenAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

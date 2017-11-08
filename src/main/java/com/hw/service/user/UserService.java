@@ -1,4 +1,4 @@
-package com.hw.service;
+package com.hw.service.user;
 
 import com.hw.exception.UserAlreadyExists;
 import com.hw.model.User;

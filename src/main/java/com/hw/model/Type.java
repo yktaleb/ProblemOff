@@ -21,7 +21,7 @@ public class Type {
     private Set<Service> services;
 
     @ManyToOne
-    private TypeClass typeClass;
+    private Category category;
 
     @OneToMany(mappedBy = "type")
     private Set<Task> tasks;

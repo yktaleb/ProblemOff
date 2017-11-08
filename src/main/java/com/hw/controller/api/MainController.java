@@ -1,11 +1,10 @@
-package com.hw.controller;
+package com.hw.controller.api;
 
 import com.hw.exception.UserAlreadyExists;
 import com.hw.model.User;
-import com.hw.service.UserService;
+import com.hw.service.user.UserService;
 import com.hw.util.security.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
