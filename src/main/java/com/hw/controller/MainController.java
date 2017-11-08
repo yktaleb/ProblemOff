@@ -1,5 +1,6 @@
 package com.hw.controller;
 
+import com.hw.exception.UserAlreadyExists;
 import com.hw.model.User;
 import com.hw.service.UserService;
 import com.hw.util.security.TokenHandler;
@@ -9,17 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
 @RestController
-public class AuthenticationController {
+@RequestMapping("api")
+public class MainController {
 
     public static final String TOKEN_NAME = "X-Auth-Token";
 
@@ -28,13 +27,13 @@ public class AuthenticationController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public AuthenticationController(TokenHandler tokenHandler, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public MainController(TokenHandler tokenHandler, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.tokenHandler = tokenHandler;
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @RequestMapping(name = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestParam String email,
                                 @RequestParam String password,
                                 HttpServletResponse response) {
@@ -60,5 +59,19 @@ public class AuthenticationController {
         return ResponseEntity
                 .status(status)
                 .body(Collections.singletonMap("message", message));
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity register(@RequestBody User user) {
+        try {
+            userService.registerUser(user);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(Collections.singletonMap("message", "Successful registration"));
+        } catch (UserAlreadyExists exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Collections.singletonMap("message", exception.getMessage()));
+        }
     }
 }
