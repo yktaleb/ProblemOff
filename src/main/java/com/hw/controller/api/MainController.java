@@ -64,7 +64,6 @@ public class MainController {
                                 .roles(user.getRoles()));
                 Cookie cookie = new Cookie(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
                 response.addCookie(cookie);
-                request.getCookies()[0].
                 status = HttpStatus.OK;
                 message = "Successful authorization";
             } else {
