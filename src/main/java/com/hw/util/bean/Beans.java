@@ -1,7 +1,6 @@
 package com.hw.util.bean;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

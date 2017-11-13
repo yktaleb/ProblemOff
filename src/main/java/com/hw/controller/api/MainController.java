@@ -1,5 +1,6 @@
 package com.hw.controller.api;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hw.exception.UserAlreadyExists;
 import com.hw.model.Role;
 import com.hw.model.User;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,10 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 public class MainController {
 
     public static final String TOKEN_NAME = "X-Auth-Token";
-    public static final String USER = "USER";
+    public static final String USER = "user";
 
     private final TokenHandler tokenHandler;
     private final UserService userService;
@@ -45,13 +44,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity login(@RequestParam String email,
                                 @RequestParam String password,
-                                HttpServletResponse response,
-                                HttpServletRequest request) {
+                                HttpServletResponse response) {
         HttpStatus status = null;
         String message = null;
-        Map responseMap = new HashMap();
+        Map<String, Object> responseMap = new HashMap();
         try {
             User user = (User) userService.loadUserByUsername(email);
             if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
@@ -82,7 +81,7 @@ public class MainController {
         responseMap.put("message", message);
         return ResponseEntity
                 .status(status)
-                .body(responseMap);
+                .body(responseMap.toString());
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -102,8 +101,16 @@ public class MainController {
     @AllArgsConstructor
     @NoArgsConstructor
     private static class UserFront {
-        private String firtName;
+        private String firstName;
         private String lastName;
         private Set<Role> roles;
+
+        @Override
+        public String toString() {
+            return "{" +
+                    "firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", roles={" + roles.stream().map(role -> role.getName()).collect(Collectors.joining("\n")) + "}}";
+        }
     }
 }
