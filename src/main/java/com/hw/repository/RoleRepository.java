@@ -4,6 +4,7 @@ import com.hw.model.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 @Repository
