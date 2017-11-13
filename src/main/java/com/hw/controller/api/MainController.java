@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
@@ -61,6 +62,8 @@ public class MainController {
                                 .firtName(user.getFirstName())
                                 .lastName(user.getLastName())
                                 .roles(user.getRoles()));
+                Cookie cookie = new Cookie(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
+                response.addCookie(cookie);
                 status = HttpStatus.OK;
                 message = "Successful authorization";
             } else {
