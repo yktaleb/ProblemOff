@@ -1,5 +1,8 @@
 package com.hw.controller.api;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hw.exception.UserAlreadyExists;
@@ -12,11 +15,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -51,24 +56,12 @@ public class MainController {
                                 HttpServletResponse response) {
         HttpStatus status = null;
         String message = null;
+        User user = null;
         Map<String, Object> responseMap = new HashMap();
         try {
-            User user = (User) userService.loadUserByUsername(email);
+            user = (User) userService.loadUserByUsername(email);
             if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
-//                request.getSession().setAttribute(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
-//                request.getSession().setAttribute(
-//                        USER,
-//                        UserFront
-//                                .builder()
-//                                .firtName(user.getFirstName())
-//                                .lastName(user.getLastName())
-//                                .roles(user.getRoles()));
-//                Cookie cookie = new Cookie(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
-//                response.addCookie(cookie);
                 response.setHeader(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
-                responseMap.put(
-                        USER,
-                        new UserFront(user.getFirstName(), user.getLastName(), user.getRoles()));
                 status = HttpStatus.OK;
                 message = "Successful authorization";
             } else {
@@ -80,9 +73,17 @@ public class MainController {
             message = exception.getMessage();
         }
         responseMap.put("message", message);
+        responseMap.put("roles",
+                user.getRoles()
+                        .stream()
+                        .map(role -> role.getName())
+                        .collect(Collectors.toList())
+        );
+        responseMap.put("firstName", user.getFirstName());
+        responseMap.put("lastName", user.getLastName());
         return ResponseEntity
                 .status(status)
-                .body(responseMap.toString());
+                .body(responseMap);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -99,19 +100,5 @@ public class MainController {
         }
     }
 
-    @AllArgsConstructor
-    @NoArgsConstructor
-    private static class UserFront {
-        private String firstName;
-        private String lastName;
-        private Set<Role> roles;
 
-        @Override
-        public String toString() {
-            return "{" +
-                    "firstName='" + firstName + '\'' +
-                    ", lastName='" + lastName + '\'' +
-                    ", roles={" + roles.stream().map(role -> role.getName()).collect(Collectors.joining("\n")) + "}}";
-        }
-    }
 }
