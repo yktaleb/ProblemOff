@@ -68,11 +68,7 @@ public class MainController {
                 response.setHeader(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
                 responseMap.put(
                         USER,
-                        UserFront
-                                .builder()
-                                .firtName(user.getFirstName())
-                                .lastName(user.getLastName())
-                                .roles(user.getRoles()));
+                        new UserFront(user.getFirstName(), user.getLastName(), user.getRoles()));
                 status = HttpStatus.OK;
                 message = "Successful authorization";
             } else {
@@ -103,8 +99,6 @@ public class MainController {
         }
     }
 
-    @Data
-    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     private static class UserFront {
