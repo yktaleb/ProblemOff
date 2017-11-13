@@ -1,5 +1,6 @@
 package com.hw.controller.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hw.exception.UserAlreadyExists;
 import com.hw.model.Role;
