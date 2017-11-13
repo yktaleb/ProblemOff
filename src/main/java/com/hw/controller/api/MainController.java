@@ -51,19 +51,28 @@ public class MainController {
                                 HttpServletRequest request) {
         HttpStatus status = null;
         String message = null;
+        Map responseMap = new HashMap();
         try {
             User user = (User) userService.loadUserByUsername(email);
             if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
-                request.getSession().setAttribute(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
-                request.getSession().setAttribute(
+//                request.getSession().setAttribute(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
+//                request.getSession().setAttribute(
+//                        USER,
+//                        UserFront
+//                                .builder()
+//                                .firtName(user.getFirstName())
+//                                .lastName(user.getLastName())
+//                                .roles(user.getRoles()));
+//                Cookie cookie = new Cookie(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
+//                response.addCookie(cookie);
+                response.setHeader(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
+                responseMap.put(
                         USER,
                         UserFront
                                 .builder()
                                 .firtName(user.getFirstName())
                                 .lastName(user.getLastName())
                                 .roles(user.getRoles()));
-                Cookie cookie = new Cookie(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
-                response.addCookie(cookie);
                 status = HttpStatus.OK;
                 message = "Successful authorization";
             } else {
@@ -74,9 +83,10 @@ public class MainController {
             status = HttpStatus.BAD_REQUEST;
             message = exception.getMessage();
         }
+        responseMap.put("message", message);
         return ResponseEntity
                 .status(status)
-                .body(Collections.singletonMap("message", message));
+                .body(responseMap);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
