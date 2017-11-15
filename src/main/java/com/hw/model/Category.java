@@ -1,5 +1,6 @@
 package com.hw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Category {
             cascade = CascadeType.ALL)
     private Set<Category> subCategory;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private Category superCategory;
 }

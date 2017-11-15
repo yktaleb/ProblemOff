@@ -26,9 +26,9 @@ public class CategoryController {
     public ResponseEntity getMainCategories(PersistentEntityResourceAssembler assembler) {
         Set<Category> mainCategories = categoryService.findAllMainCategories();
         return ResponseEntity
-                .ok(new Resources(mainCategories.stream()
+                .ok(mainCategories.stream()
                 .map(assembler::toFullResource)
-                .collect(Collectors.toList())));
+                .collect(Collectors.toList()));
     }
 
     @RequestMapping(value = "/{id}/subCategories/{subId}", method = RequestMethod.PUT)

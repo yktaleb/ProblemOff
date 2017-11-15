@@ -1,11 +1,12 @@
 package com.hw.service.user;
 
 import com.hw.exception.UserAlreadyExists;
+import com.hw.exception.UserNotFoundException;
 import com.hw.model.Role;
 import com.hw.model.User;
 import com.hw.repository.RoleRepository;
 import com.hw.repository.UserRepository;
-import com.hw.service.user.UserService;
+import com.hw.util.security.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -21,17 +23,21 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final String AUTH_HEADER_NAME = "X-Auth-Token";
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final TokenHandler tokenHandler;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           BCryptPasswordEncoder bCryptPasswordEncoder) {
+                           BCryptPasswordEncoder bCryptPasswordEncoder, TokenHandler tokenHandler) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.tokenHandler = tokenHandler;
     }
 
     @Override
@@ -67,4 +73,23 @@ public class UserServiceImpl implements UserService {
             }
         });
     }
+
+    @Override
+    public User getCurrentUser(HttpServletRequest request) throws UserNotFoundException {
+        return findById(tokenHandler.extractUserId(request.getHeader(AUTH_HEADER_NAME))
+                .orElseThrow(() -> new UserNotFoundException("In token user not found "))
+        ).orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
+    public void changePassword(HttpServletRequest request, String currentPassword, String newPassword) throws UserNotFoundException {
+        User currentUser = getCurrentUser(request);
+
+    }
+
+    @Override
+    public String getTokenUserInfo() {
+        return null;
+    }
+
 }
