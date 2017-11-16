@@ -1,7 +1,7 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-src/main/java/com/hw/project/variable/
+#src/main/java/com/hw/project/variable/
 
 ### STS ###
 .apt_generated
