@@ -18,4 +18,8 @@ public interface UserService extends UserDetailsService {
     void changePassword(HttpServletRequest request, String currentPassword, String newPassword) throws UserNotFoundException;
 
     String getTokenUserInfo();
+
+    void delete(Long id);
+
+    void delete(User user);
 }

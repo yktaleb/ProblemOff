@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username).orElseThrow(
@@ -90,6 +91,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getTokenUserInfo() {
         return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.delete(id);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 
 }

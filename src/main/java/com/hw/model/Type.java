@@ -1,5 +1,6 @@
 package com.hw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,8 @@ public class Type {
     @OneToMany(mappedBy = "type")
     private Set<Service> services;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Category category;
 
     @OneToMany(mappedBy = "type")

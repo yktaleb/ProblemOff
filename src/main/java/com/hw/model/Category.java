@@ -17,7 +17,8 @@ public class Category {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",
+            fetch = FetchType.LAZY)
     private Set<Type> types;
 
     @OneToMany(mappedBy = "superCategory",
@@ -27,5 +28,6 @@ public class Category {
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @JsonIgnore
     private Category superCategory;
 }

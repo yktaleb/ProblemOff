@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "`user`")
-public class User implements UserDetails {
+public class User implements UserDetails, Cloneable{
     @Id
     @GeneratedValue
     private Long id;
@@ -102,4 +102,10 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 }

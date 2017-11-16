@@ -57,12 +57,25 @@ public class MainController {
         HttpStatus status = null;
         String message = null;
         User user = null;
+        Map<String, Object> responseMap = new HashMap();
         try {
             user = (User) userService.loadUserByUsername(email);
             if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
                 response.setHeader(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
                 status = HttpStatus.OK;
                 message = "Successful authorization";
+                responseMap.put("message", message);
+                responseMap.put("roles",
+                        user.getRoles()
+                                .stream()
+                                .map(role -> role.getName())
+                                .collect(Collectors.toList())
+                );
+                responseMap.put("firstName", user.getFirstName());
+                responseMap.put("lastName", user.getLastName());
+
+                String encode = tokenHandler.encode(responseMap);
+                tokenHandler.decode(encode);
             } else {
                 status = HttpStatus.BAD_REQUEST;
                 message = "Password is wrong";
@@ -71,20 +84,6 @@ public class MainController {
             status = HttpStatus.BAD_REQUEST;
             message = exception.getMessage();
         }
-
-        Map<String, Object> responseMap = new HashMap();
-        responseMap.put("message", message);
-        responseMap.put("roles",
-                user.getRoles()
-                        .stream()
-                        .map(role -> role.getName())
-                        .collect(Collectors.toList())
-        );
-        responseMap.put("firstName", user.getFirstName());
-        responseMap.put("lastName", user.getLastName());
-
-        String encode = tokenHandler.encode(responseMap);
-        tokenHandler.decode(encode);
 
         return ResponseEntity
                 .status(status)
