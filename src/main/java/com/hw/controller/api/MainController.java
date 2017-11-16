@@ -74,7 +74,8 @@ public class MainController {
                 responseMap.put("firstName", user.getFirstName());
                 responseMap.put("lastName", user.getLastName());
 
-                String encode = tokenHandler.encode(responseMap);
+                String encode = tokenHandler.encode(Collections.singletonMap("codeword", "loh"));
+                responseMap.put("token", encode);
                 tokenHandler.decode(encode);
             } else {
                 status = HttpStatus.BAD_REQUEST;
