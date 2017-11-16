@@ -65,4 +65,14 @@ public class MainControllerTest {
                 .param("password", "ttt"))
                     .andExpect(status().isOk());
     }
+
+    @Test
+    public void successRegistration() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/register")
+                .content(saveRequestJsonString(newUserForRegistration))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
