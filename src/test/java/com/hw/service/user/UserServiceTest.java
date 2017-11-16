@@ -16,5 +16,5 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = ProblemOffApplication.class)
 public class UserServiceTest {
-    
+
 }
