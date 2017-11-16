@@ -17,4 +17,33 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = ProblemOffApplication.class)
 public class UserServiceTest {
 
+    private User user;
+    private User userClone;
+
+    @Autowired
+    private UserService userService;
+
+    @Before
+    public void init() throws UserAlreadyExists, CloneNotSupportedException {
+        user = new User();
+        user.setFirstName("Test");
+        user.setLastName("Test");
+        user.setEmail("test");
+        user.setPassword("test");
+        user.setPhoneNumber("0665119176");
+
+        userClone = (User) user.clone();
+
+        userService.registerUser(user);
+    }
+
+    @After
+    public void deleteUser() {
+        userService.delete(user);
+    }
+
+    @Test(expected = UserAlreadyExists.class)
+    public void registerUser() throws Exception {
+        userService.registerUser(userClone);
+    }
 }
