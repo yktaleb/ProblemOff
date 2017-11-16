@@ -25,6 +25,7 @@ public class MainControllerTest {
 
     private User user;
     private User newUserForRegistration;
+    private User userAlreadyExists;
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,6 +48,8 @@ public class MainControllerTest {
         newUserForRegistration.setEmail("NewUser");
         newUserForRegistration.setPassword("NewUser");
         newUserForRegistration.setPhoneNumber("NewUser");
+
+        userAlreadyExists = (User) user.clone();
 
         userService.registerUser(user);
     }
