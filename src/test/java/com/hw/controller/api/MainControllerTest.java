@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MainControllerTest {
 
     private User user;
+    private User newUserForRegistration;
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,6 +40,13 @@ public class MainControllerTest {
         user.setEmail("ttt");
         user.setPassword("ttt");
         user.setPhoneNumber("test");
+
+        newUserForRegistration = new User();
+        newUserForRegistration.setFirstName("NewUser");
+        newUserForRegistration.setLastName("NewUser");
+        newUserForRegistration.setEmail("NewUser");
+        newUserForRegistration.setPassword("NewUser");
+        newUserForRegistration.setPhoneNumber("NewUser");
 
         userService.registerUser(user);
     }
