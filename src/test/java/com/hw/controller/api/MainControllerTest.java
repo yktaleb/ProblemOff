@@ -89,6 +89,15 @@ public class MainControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void failRegistrationUserAlreadyExists() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/register")
+                .content(saveRequestJsonString(userAlreadyExists))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
     
     public String saveRequestJsonString(User user) {
         return "{" +
