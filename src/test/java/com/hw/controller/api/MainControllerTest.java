@@ -68,6 +68,16 @@ public class MainControllerTest {
                 .param("password", "ttt"))
                     .andExpect(status().isOk());
     }
+    
+    @Test
+    public void userNotFoundAfterLogin() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/login")
+                .param("email", "notFoundEmail")
+                .param("password", "ttt"))
+                .andExpect(status().isBadRequest());
+    }
 
     @Test
     public void incorrectPasswordAfterLogin() throws Exception {
