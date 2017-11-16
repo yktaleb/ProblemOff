@@ -75,4 +75,15 @@ public class MainControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+    
+    public String saveRequestJsonString(User user) {
+        return "{" +
+                "\"email\":\"" + user.getEmail()+ '\"' +
+                ",\"password\":\"" + user.getPassword() + '\"' +
+                ",\"firstName\":\"" + user.getFirstName() + '\"' +
+                ",\"lastName\":\"" + user.getLastName() + '\"' +
+                ",\"phoneNumber\":\"" + user.getPhoneNumber() + '\"' +
+                '}';
+    }
 }
