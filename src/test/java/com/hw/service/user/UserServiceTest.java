@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = ProblemOffApplication.class)
 public class UserServiceTest {
-
     private User user;
     private User userClone;
 
@@ -43,18 +42,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = UserAlreadyExists.class)
-    public void registerUser() throws Exception {
+    public void failRegisterUser() throws Exception {
         userService.registerUser(userClone);
-    }
-
-    @Test
-    public void successLoadUserByUsername() {
-        User userDetails = (User) userService.loadUserByUsername(user.getEmail());
-        Assert.assertEquals(userDetails.getId(), user.getId());
-    }
-
-    @Test(expected = UsernameNotFoundException.class)
-    public void failLoadUserByUsername() {
-        userService.loadUserByUsername("userNotFound");
     }
 }
