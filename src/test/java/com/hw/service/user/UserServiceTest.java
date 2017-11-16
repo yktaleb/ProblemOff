@@ -46,4 +46,11 @@ public class UserServiceTest {
     public void registerUser() throws Exception {
         userService.registerUser(userClone);
     }
+
+    @Test
+    public void successLoadUserByUsername() {
+        User userDetails = (User) userService.loadUserByUsername(user.getEmail());
+        Assert.assertEquals(userDetails.getId(), user.getId());
+    }
+
 }
