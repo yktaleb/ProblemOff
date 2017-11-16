@@ -45,4 +45,15 @@ public class UserServiceTest {
     public void failRegisterUser() throws Exception {
         userService.registerUser(userClone);
     }
+
+    @Test
+    public void successLoadUserByUsername() {
+        User userDetails = (User) userService.loadUserByUsername(user.getEmail());
+        Assert.assertEquals(userDetails.getId(), user.getId());
+    }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void failLoadUserByUsername() {
+        userService.loadUserByUsername("userNotFound");
+    }
 }
