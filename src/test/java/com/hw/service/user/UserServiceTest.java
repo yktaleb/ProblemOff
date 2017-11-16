@@ -53,4 +53,8 @@ public class UserServiceTest {
         Assert.assertEquals(userDetails.getId(), user.getId());
     }
 
+    @Test(expected = UsernameNotFoundException.class)
+    public void failLoadUserByUsername() {
+        userService.loadUserByUsername("userNotFound");
+    }
 }
