@@ -45,6 +45,11 @@ public class UserServiceTest {
     public void failRegisterUser() throws Exception {
         userService.registerUser(userClone);
     }
+    
+    @Test
+    public void findById() {
+        Assert.assertEquals(userService.findById(user.getId()).get().getId(), user.getId());
+    }
 
     @Test
     public void successLoadUserByUsername() {
