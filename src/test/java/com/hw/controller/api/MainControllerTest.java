@@ -67,6 +67,16 @@ public class MainControllerTest {
     }
 
     @Test
+    public void incorrectPasswordAfterLogin() throws Exception {
+
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/login")
+                .param("email", "ttt")
+                .param("password", "incorrectPassword"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void successRegistration() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
