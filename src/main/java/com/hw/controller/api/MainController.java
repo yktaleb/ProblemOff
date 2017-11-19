@@ -57,52 +57,42 @@ public class MainController {
         HttpStatus status = null;
         String message = null;
         User user = null;
-        Map<String, Object> responseMap = new HashMap();
         try {
             user = (User) userService.loadUserByUsername(email);
             if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
                 response.setHeader(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
-                status = HttpStatus.OK;
-                message = "Successful authorization";
-                responseMap.put("message", message);
-                responseMap.put("roles",
+                Map<String, Object> userInfo = new HashMap();
+                userInfo.put("firstName", user.getFirstName());
+                userInfo.put("lastName", user.getLastName());
+                userInfo.put("roles",
                         user.getRoles()
                                 .stream()
                                 .map(role -> role.getName())
                                 .collect(Collectors.toList())
                 );
-                responseMap.put("firstName", user.getFirstName());
-                responseMap.put("lastName", user.getLastName());
-
-                String encode = tokenHandler.encode(Collections.singletonMap("codeword", "coder"));
-                responseMap.put("token", encode);
+                return ResponseEntity.ok(tokenHandler.encode(userInfo));
             } else {
-                status = HttpStatus.BAD_REQUEST;
                 message = "Password is wrong";
             }
         } catch (UsernameNotFoundException exception) {
-            status = HttpStatus.BAD_REQUEST;
             message = exception.getMessage();
         }
 
         return ResponseEntity
-                .status(status)
-                .body(responseMap);
+                .status(HttpStatus.BAD_REQUEST)
+                .body(message);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody User user) {
         try {
             userService.registerUser(user);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(Collections.singletonMap("message", "Successful registration"));
+            return new ResponseEntity(HttpStatus.OK);
         } catch (UserAlreadyExists exception) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(Collections.singletonMap("message", exception.getMessage()));
         }
     }
-
 
 }
