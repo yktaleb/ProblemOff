@@ -27,13 +27,13 @@ public class MainControllerTest {
     private User newUserForRegistration;
     private User userAlreadyExists;
 
-    @Autowired
+//    @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+//    @Autowired
     private UserService userService;
 
-    @Before
+//    @Before
     public void register() throws UserAlreadyExists, CloneNotSupportedException {
         user = new User();
         user.setFirstName("Test");
@@ -54,12 +54,12 @@ public class MainControllerTest {
         userService.registerUser(user);
     }
 
-    @After
+//    @After
     public void deleteUser() {
         userService.delete(user);
     }
 
-    @Test
+//    @Test
     public void successLogin() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
@@ -69,7 +69,7 @@ public class MainControllerTest {
                     .andExpect(status().isOk());
     }
     
-    @Test
+//    @Test
     public void userNotFoundAfterLogin() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
@@ -79,7 +79,7 @@ public class MainControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+//    @Test
     public void incorrectPasswordAfterLogin() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
@@ -89,7 +89,7 @@ public class MainControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+//    @Test
     public void successRegistration() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
@@ -99,7 +99,7 @@ public class MainControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
+//    @Test
     public void failRegistrationUserAlreadyExists() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
