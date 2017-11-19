@@ -13,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ProblemOffApplication.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = ProblemOffApplication.class)
 public class UserServiceTest {
     private User user;
     private User userClone;
