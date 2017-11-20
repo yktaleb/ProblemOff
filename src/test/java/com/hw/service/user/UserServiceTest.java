@@ -1,17 +1,8 @@
 package com.hw.service.user;
 
-import com.hw.ProblemOffApplication;
-import com.hw.exception.UserAlreadyExists;
+import com.hw.exception.UserAlreadyExistsException;
 import com.hw.model.User;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@SpringBootTest(classes = ProblemOffApplication.class)
@@ -23,7 +14,7 @@ public class UserServiceTest {
     private UserService userService;
 
 //    @Before
-    public void init() throws UserAlreadyExists, CloneNotSupportedException {
+    public void init() throws UserAlreadyExistsException, CloneNotSupportedException {
         user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
@@ -41,7 +32,7 @@ public class UserServiceTest {
         userService.delete(user);
     }
 
-//    @Test(expected = UserAlreadyExists.class)
+//    @Test(expected = UserAlreadyExistsException.class)
     public void failRegisterUser() throws Exception {
         userService.registerUser(userClone);
     }

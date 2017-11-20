@@ -5,6 +5,7 @@ import com.hw.model.Type;
 import com.hw.service.category.CategoryService;
 import com.hw.service.type.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.Resources;
@@ -23,10 +24,17 @@ public class CategoryController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getMainCategories(PersistentEntityResourceAssembler assembler) {
+    public Resources<PersistentEntityResource> getMainCategories(PersistentEntityResourceAssembler assembler) {
         Set<Category> mainCategories = categoryService.findAllMainCategories();
-        return ResponseEntity
-                .ok(mainCategories.stream()
+//        return ResponseEntity
+//                .ok(mainCategories.stream()
+//                .map(assembler::toFullResource)
+//                .collect(Collectors.toList()));
+//        return ResponseEntity
+//                .ok(mainCategories.stream()
+//                    .map(assembler::toFullResource)
+//                    .collect(Collectors.toList()));
+        return new Resources<PersistentEntityResource>(mainCategories.stream()
                 .map(assembler::toFullResource)
                 .collect(Collectors.toList()));
     }

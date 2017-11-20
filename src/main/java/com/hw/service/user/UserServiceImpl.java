@@ -1,6 +1,6 @@
 package com.hw.service.user;
 
-import com.hw.exception.UserAlreadyExists;
+import com.hw.exception.UserAlreadyExistsException;
 import com.hw.exception.UserNotFoundException;
 import com.hw.model.Role;
 import com.hw.model.User;
@@ -8,6 +8,8 @@ import com.hw.repository.RoleRepository;
 import com.hw.repository.UserRepository;
 import com.hw.util.security.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,10 +22,20 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@PropertySource("classpath:exceptions.properties")
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String AUTH_HEADER_NAME = "X-Auth-Token";
+    @Value("${token_name}")
+    private String tokenName;
+    @Value("${user_already_exists}")
+    private String userAlreadyExists;
+    @Value("${user_not_found}")
+    private String userNotFound;
+    @Value("${not_user_in_token}")
+    private String notUserInToken;
+    @Value("${user_role}")
+    private String userRole;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -41,13 +53,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(User user) throws UserAlreadyExists {
+    public void registerUser(User user) throws UserAlreadyExistsException {
         try {
-            setUserRoles(user, Collections.singleton("USER_ROLE"));
+            setUserRoles(user, Collections.singleton(userRole));
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new UserAlreadyExists("User already exists");
+            throw new UserAlreadyExistsException(userAlreadyExists);
         }
     }
 
@@ -60,7 +72,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username).orElseThrow(
-                () -> new UsernameNotFoundException("user " + username + " was not found!"));
+                () -> new UsernameNotFoundException(userNotFound +"(" + username + ")"));
     }
 
     private void setUserRoles(User user, Set<String> roles) {
@@ -77,15 +89,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser(HttpServletRequest request) throws UserNotFoundException {
-        return findById(tokenHandler.extractUserId(request.getHeader(AUTH_HEADER_NAME))
-                .orElseThrow(() -> new UserNotFoundException("In token user not found "))
-        ).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return findById(tokenHandler.extractUserId(request.getHeader(tokenName))
+                .orElseThrow(() -> new UserNotFoundException(notUserInToken))
+        ).orElseThrow(() -> new UserNotFoundException(userNotFound));
     }
 
     @Override
-    public void changePassword(HttpServletRequest request, String currentPassword, String newPassword) throws UserNotFoundException {
+    public void changePassword(HttpServletRequest request,
+                               String currentPassword,
+                               String newPassword) throws UserNotFoundException {
         User currentUser = getCurrentUser(request);
-
     }
 
     @Override

@@ -28,6 +28,5 @@ public class Category {
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @JsonIgnore
     private Category superCategory;
 }

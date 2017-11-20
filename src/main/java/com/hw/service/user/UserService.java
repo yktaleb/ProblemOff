@@ -1,6 +1,6 @@
 package com.hw.service.user;
 
-import com.hw.exception.UserAlreadyExists;
+import com.hw.exception.UserAlreadyExistsException;
 import com.hw.exception.UserNotFoundException;
 import com.hw.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    void registerUser(User user) throws UserAlreadyExists;
+    void registerUser(User user) throws UserAlreadyExistsException;
 
     Optional<User> findById(Long id);
 

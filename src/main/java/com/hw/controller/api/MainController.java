@@ -1,6 +1,6 @@
 package com.hw.controller.api;
 
-import com.hw.exception.UserAlreadyExists;
+import com.hw.exception.UserAlreadyExistsException;
 import com.hw.model.User;
 import com.hw.service.user.UserService;
 import com.hw.util.security.TokenHandler;
@@ -27,8 +27,6 @@ public class MainController {
 
     @Value("${token_name}")
     private String tokenName;
-    @Value("${message}")
-    private String message;
     @Value("${wrong_password}")
     private String wrongPassword;
 
@@ -81,10 +79,10 @@ public class MainController {
         try {
             userService.registerUser(user);
             return new ResponseEntity(HttpStatus.OK);
-        } catch (UserAlreadyExists exception) {
+        } catch (UserAlreadyExistsException exception) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap(message, exception.getMessage()));
+                    .body(Collections.singletonMap("message", exception.getMessage()));
         }
     }
 
