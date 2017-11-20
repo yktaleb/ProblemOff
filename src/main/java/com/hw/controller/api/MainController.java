@@ -1,42 +1,36 @@
 package com.hw.controller.api;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hw.exception.UserAlreadyExists;
-import com.hw.model.Role;
 import com.hw.model.User;
 import com.hw.service.user.UserService;
 import com.hw.util.security.TokenHandler;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@PropertySource("classpath:constants.properties")
 @RestController
 @RequestMapping("api")
 public class MainController {
 
-    public static final String TOKEN_NAME = "X-Auth-Token";
-    public static final String USER = "user";
+    @Value("${token_name}")
+    private String tokenName;
+    @Value("${message}")
+    private String message;
+    @Value("${wrong_password}")
+    private String wrongPassword;
 
     private final TokenHandler tokenHandler;
     private final UserService userService;
@@ -54,13 +48,12 @@ public class MainController {
     public ResponseEntity login(@RequestParam String email,
                                 @RequestParam String password,
                                 HttpServletResponse response) {
-        HttpStatus status = null;
         String message = null;
         User user = null;
         try {
             user = (User) userService.loadUserByUsername(email);
             if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
-                response.setHeader(TOKEN_NAME, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
+                response.setHeader(tokenName, tokenHandler.generateAccessToken(user.getId(), LocalDateTime.now().plusDays(14)));
                 Map<String, Object> userInfo = new HashMap();
                 userInfo.put("firstName", user.getFirstName());
                 userInfo.put("lastName", user.getLastName());
@@ -72,7 +65,7 @@ public class MainController {
                 );
                 return ResponseEntity.ok(tokenHandler.encode(userInfo));
             } else {
-                message = "Password is wrong";
+                message = wrongPassword;
             }
         } catch (UsernameNotFoundException exception) {
             message = exception.getMessage();
@@ -91,7 +84,7 @@ public class MainController {
         } catch (UserAlreadyExists exception) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("message", exception.getMessage()));
+                    .body(Collections.singletonMap(message, exception.getMessage()));
         }
     }
 
