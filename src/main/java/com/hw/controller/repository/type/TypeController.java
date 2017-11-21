@@ -1,14 +1,13 @@
-package com.hw.controller.api.type;
+package com.hw.controller.repository.type;
 
 import com.hw.service.type.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/types")
+@RequestMapping("types")
 public class TypeController {
 
     @Autowired

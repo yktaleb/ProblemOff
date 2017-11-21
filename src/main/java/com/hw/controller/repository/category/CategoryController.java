@@ -1,9 +1,8 @@
-package com.hw.controller.api.category;
+package com.hw.controller.repository.category;
 
 import com.hw.model.Category;
 import com.hw.model.Type;
 import com.hw.service.category.CategoryService;
-import com.hw.service.type.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
@@ -16,27 +15,30 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
-@RequestMapping("categories")
+@RequestMapping("api/admin/categories")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
+    @RequestMapping(value = "/main/all", method = RequestMethod.GET)
+    public ResponseEntity getMainCategories() {
+        return ResponseEntity.ok(categoryService.findAllMainCategories());
+    }
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
-    public Resources<PersistentEntityResource> getMainCategories(PersistentEntityResourceAssembler assembler) {
+    public ResponseEntity<Resources<PersistentEntityResource>> getMainCategories(
+            PersistentEntityResourceAssembler assembler) {
         Set<Category> mainCategories = categoryService.findAllMainCategories();
-//        return ResponseEntity
-//                .ok(mainCategories.stream()
-//                .map(assembler::toFullResource)
-//                .collect(Collectors.toList()));
-//        return ResponseEntity
-//                .ok(mainCategories.stream()
-//                    .map(assembler::toFullResource)
-//                    .collect(Collectors.toList()));
-        return new Resources<PersistentEntityResource>(mainCategories.stream()
-                .map(assembler::toFullResource)
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(
+                new Resources<>(
+                        mainCategories
+                                .stream()
+                                .map(assembler::toFullResource)
+                                .collect(Collectors.toList())
+                )
+        );
     }
 
     @RequestMapping(value = "/{id}/subCategories/{subId}", method = RequestMethod.PUT)

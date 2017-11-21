@@ -3,7 +3,6 @@ package com.hw.controller.api.user;
 import com.hw.exception.UserNotFoundException;
 import com.hw.model.User;
 import com.hw.service.user.UserService;
-import com.hw.util.security.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/account")

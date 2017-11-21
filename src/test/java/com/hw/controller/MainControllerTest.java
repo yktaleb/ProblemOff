@@ -1,4 +1,4 @@
-package com.hw.controller.api;
+package com.hw.controller;
 
 import com.hw.exception.UserAlreadyExistsException;
 import com.hw.model.User;
