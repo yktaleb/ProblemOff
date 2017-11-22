@@ -1,4 +1,4 @@
-package com.hw.controller.repository.type;
+package com.hw.controller.api.admin.type;
 
 import com.hw.service.type.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;

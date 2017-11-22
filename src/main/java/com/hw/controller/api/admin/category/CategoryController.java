@@ -1,8 +1,9 @@
-package com.hw.controller.repository.category;
+package com.hw.controller.api.admin.category;
 
 import com.hw.model.Category;
 import com.hw.model.Type;
 import com.hw.service.category.CategoryService;
+import com.hw.util.resource.links.CategoryLinks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
@@ -11,6 +12,8 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,23 +23,21 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
-    @RequestMapping(value = "/main/all", method = RequestMethod.GET)
-    public ResponseEntity getMainCategories() {
-        return ResponseEntity.ok(categoryService.findAllMainCategories());
-    }
+    @Autowired
+    private CategoryLinks categoryLinks;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Resources<PersistentEntityResource>> getMainCategories(
             PersistentEntityResourceAssembler assembler) {
         Set<Category> mainCategories = categoryService.findAllMainCategories();
+
         return ResponseEntity.ok(
                 new Resources<>(
                         mainCategories
-                                .stream()
-                                .map(assembler::toFullResource)
-                                .collect(Collectors.toList())
+                        .stream()
+                        .map(assembler::toFullResource)
+                        .collect(Collectors.toList())
                 )
         );
     }
@@ -73,7 +74,7 @@ public class CategoryController {
 
     @RequestMapping(value = "/{id}/superCategory", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity setSuperCategory(@PathVariable Long id,
+    public ResponseEntity createSuperCategory(@PathVariable Long id,
                                            @RequestBody Category superCategory,
                                            PersistentEntityResourceAssembler assembler) {
         return ResponseEntity.ok(
@@ -102,7 +103,7 @@ public class CategoryController {
 
     @RequestMapping(value = "/{id}/types/{typeId}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity addType(@PathVariable Long id,
+    public ResponseEntity setType(@PathVariable Long id,
                                   @PathVariable Long typeId,
                                   PersistentEntityResourceAssembler assembler) {
         return ResponseEntity.ok(
