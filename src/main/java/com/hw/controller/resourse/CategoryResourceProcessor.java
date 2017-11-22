@@ -28,7 +28,7 @@ public class CategoryResourceProcessor implements ResourceProcessor<Resource<Cat
     public Resource<Category> process(Resource<Category> categoryResource) {
         Category category = categoryResource.getContent();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+        if (!(authentication instanceof AnonymousAuthenticationToken) && authentication != null) {
             User user = (User) authentication.getPrincipal();
             for (Role role : user.getRoles()) {
                 if (role.getName().equals(userRole)) {
