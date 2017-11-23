@@ -4,16 +4,12 @@ import com.hw.controller.api.admin.category.CategoryController;
 import com.hw.model.Category;
 import com.hw.model.Role;
 import com.hw.model.User;
-import com.hw.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -35,8 +31,8 @@ public class CategoryResourceProcessor implements ResourceProcessor<Resource<Cat
 
                 } else if (role.getName().equals(adminRole)) {
                     categoryResource.add(linkTo(methodOn(CategoryController.class)
-                            .addSubCategory(category.getId(), null, null))
-                            .withRel("addSubCategory"));
+                            .setSubCategory(category.getId(), null, null))
+                            .withRel("setSubCategory"));
                     categoryResource.add(linkTo(methodOn(CategoryController.class)
                             .createSubCategory(category.getId(),null, null))
                             .withRel("createSubCategory"));
@@ -50,11 +46,8 @@ public class CategoryResourceProcessor implements ResourceProcessor<Resource<Cat
                             .alterToMain(category.getId(), null))
                             .withRel("alterToMain"));
                     categoryResource.add(linkTo(methodOn(CategoryController.class)
-                            .alterToMain(category.getId(), null))
-                            .withRel("alterToMain"));
-                    categoryResource.add(linkTo(methodOn(CategoryController.class)
-                            .addType(category.getId(), null, null))
-                            .withRel("addType"));
+                            .createType(category.getId(), null, null))
+                            .withRel("createType"));
                     categoryResource.add(linkTo(methodOn(CategoryController.class)
                             .setType(category.getId(), null, null))
                             .withRel("setType"));

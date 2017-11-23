@@ -23,8 +23,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private CategoryLinks categoryLinks;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @ResponseBody
@@ -44,7 +42,7 @@ public class CategoryController {
 
     @RequestMapping(value = "/{id}/subCategories/{subId}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity addSubCategory(@PathVariable Long id,
+    public ResponseEntity setSubCategory(@PathVariable Long id,
                                          @PathVariable Long subId,
                                          PersistentEntityResourceAssembler assembler) {
         return ResponseEntity.ok(
@@ -93,9 +91,9 @@ public class CategoryController {
 
     @RequestMapping(value = "/{id}/types", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity addType(@PathVariable Long id,
-                                  @RequestBody Type type,
-                                  PersistentEntityResourceAssembler assembler) {
+    public ResponseEntity createType(@PathVariable Long id,
+                                     @RequestBody Type type,
+                                     PersistentEntityResourceAssembler assembler) {
         return ResponseEntity.ok(
                 assembler.toFullResource(categoryService.addType(id, type))
         );
