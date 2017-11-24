@@ -3,7 +3,6 @@ package com.hw.controller.api.admin.category;
 import com.hw.model.Category;
 import com.hw.model.Type;
 import com.hw.service.category.CategoryService;
-import com.hw.util.resource.links.CategoryLinks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
@@ -12,8 +11,6 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,13 +26,28 @@ public class CategoryController {
     public ResponseEntity<Resources<PersistentEntityResource>> getMainCategories(
             PersistentEntityResourceAssembler assembler) {
         Set<Category> mainCategories = categoryService.findAllMainCategories();
-
         return ResponseEntity.ok(
                 new Resources<>(
                         mainCategories
                         .stream()
                         .map(assembler::toFullResource)
                         .collect(Collectors.toList())
+                )
+        );
+    }
+
+    @RequestMapping(value = "/{id}/subCategories", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Resources<PersistentEntityResource>> getSubCategories(
+            @PathVariable Long id,
+            PersistentEntityResourceAssembler assembler) {
+        Set<Category> subCategories = categoryService.getSubCategories(id);
+        return ResponseEntity.ok(
+                new Resources<>(
+                        subCategories
+                                .stream()
+                                .map(assembler::toFullResource)
+                                .collect(Collectors.toList())
                 )
         );
     }

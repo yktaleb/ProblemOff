@@ -75,4 +75,9 @@ public class CategoryServiceImpl implements CategoryService {
         typeService.setCategory(typeId, id);
         return category;
     }
+
+    @Override
+    public Set<Category> getSubCategories(Long id) {
+        return categoryRepository.findAllBySuperCategory(categoryRepository.findOne(id));
+    }
 }

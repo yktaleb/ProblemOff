@@ -23,4 +23,6 @@ public interface CategoryService {
     Category addType(Long id, Type type);
 
     Category addType(Long id, Long typeId);
+
+    Set<Category> getSubCategories(Long id);
 }

@@ -12,4 +12,6 @@ import java.util.Set;
 public interface CategoryRepository extends CrudRepository<Category, Long> {
     @Query("select c from Category c where c.superCategory = null")
     Set<Category> findAllMainCategories();
+
+    Set<Category> findAllBySuperCategory(Category category);
 }
