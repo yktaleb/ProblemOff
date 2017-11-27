@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RepositoryRestController
 @RequestMapping("api/admin/categories")
-public class CategoryController {
+public class AdminCategoryController {
 
     @Autowired
     private CategoryService categoryService;

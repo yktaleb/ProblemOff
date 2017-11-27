@@ -1,6 +1,7 @@
 package com.hw.model;
 
 import lombok.*;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -41,31 +42,40 @@ public class User implements UserDetails, Cloneable{
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver",
+            fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author",
+            fetch = FetchType.LAZY)
     private Set<Comment> authorComments;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
     private Set<Service> services;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
     private Set<Notification> notifications;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
     private Set<Correspondence> correspondences;
 
-    @OneToMany(mappedBy = "interlocutor")
+    @OneToMany(mappedBy = "interlocutor",
+            fetch = FetchType.LAZY)
     private Set<Correspondence> interlocutorCorrespondences;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
     private Set<Task> tasks;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
     private Set<TaskInstance> taskInstances;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
     private Set<TaskOrder> taskOrders;
 
     @Override

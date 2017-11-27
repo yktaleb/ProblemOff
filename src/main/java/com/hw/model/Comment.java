@@ -1,5 +1,6 @@
 package com.hw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,9 +18,9 @@ public class Comment {
     private Date writingDate;
     private String value;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User receiver;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User author;
     @ManyToOne
     private CommentMark commentMark;

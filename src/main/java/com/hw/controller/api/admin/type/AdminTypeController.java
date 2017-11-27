@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("types")
-public class TypeController {
+public class AdminTypeController {
 
     @Autowired
     private TypeService typeService;

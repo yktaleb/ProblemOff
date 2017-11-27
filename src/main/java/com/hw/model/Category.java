@@ -34,6 +34,6 @@ public class Category {
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @JsonIgnore
+//    @RestResource(exported = false)
     private Category superCategory;
 }
