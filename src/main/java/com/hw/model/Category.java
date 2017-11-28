@@ -1,6 +1,5 @@
 package com.hw.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,13 +26,11 @@ public class Category {
     private Set<Type> types;
 
     @OneToMany(mappedBy = "superCategory",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            fetch = FetchType.LAZY)
     @RestResource(exported = false)
     private Set<Category> subCategories;
 
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @ManyToOne
 //    @RestResource(exported = false)
     private Category superCategory;
 }

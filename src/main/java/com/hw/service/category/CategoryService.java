@@ -25,4 +25,6 @@ public interface CategoryService {
     Category addType(Long id, Long typeId);
 
     Set<Category> getSubCategories(Long id);
+
+    void delete(Long id);
 }

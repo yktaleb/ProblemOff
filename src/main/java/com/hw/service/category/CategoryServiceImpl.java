@@ -80,4 +80,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Set<Category> getSubCategories(Long id) {
         return categoryRepository.findAllBySuperCategory(categoryRepository.findOne(id));
     }
+
+    @Override
+    public void delete(Long id) {
+        categoryRepository.delete(id);
+    }
 }

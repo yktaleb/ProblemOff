@@ -5,13 +5,14 @@ import com.hw.model.User;
 import com.hw.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@RepositoryRestController
 @RequestMapping("api/account")
 public class AccountController {
 
@@ -23,6 +24,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
     public ResponseEntity updateMainInformation(HttpServletRequest request,
                                                 PersistentEntityResourceAssembler assembler) {
         try {

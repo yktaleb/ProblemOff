@@ -8,6 +8,7 @@ import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,11 +30,19 @@ public class AdminCategoryController {
         return ResponseEntity.ok(
                 new Resources<>(
                         mainCategories
-                        .stream()
-                        .map(assembler::toFullResource)
-                        .collect(Collectors.toList())
+                                .stream()
+                                .map(assembler::toFullResource)
+                                .collect(Collectors.toList())
                 )
         );
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity deleteCategory(
+            @PathVariable Long id) {
+        categoryService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/subCategories", method = RequestMethod.GET)
