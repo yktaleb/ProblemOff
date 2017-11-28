@@ -23,7 +23,7 @@ public class AccountController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity updateMainInformation(HttpServletRequest request,
                                                 PersistentEntityResourceAssembler assembler) {
