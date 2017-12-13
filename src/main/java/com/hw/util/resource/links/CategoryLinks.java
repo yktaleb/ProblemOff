@@ -35,7 +35,7 @@ public class CategoryLinks implements HypermediaLinks<Category> {
             User user = (User) authentication.getPrincipal();
             for (Role role : user.getRoles()) {
                 if (role.getName().equals(userRole)) {
-
+                    System.out.println();
                 } else if (role.getName().equals(adminRole)) {
                     links.addAll(getLinksForAdmin(id));
                 }
@@ -52,7 +52,7 @@ public class CategoryLinks implements HypermediaLinks<Category> {
             User user = (User) authentication.getPrincipal();
             for (Role role : user.getRoles()) {
                 if (role.getName().equals(userRole)) {
-
+                    System.out.println();
                 } else if (role.getName().equals(adminRole)) {
                     links.addAll(getLinksForAdmin(id));
                     links.add(linkTo(methodOn(AdminCategoryController.class)

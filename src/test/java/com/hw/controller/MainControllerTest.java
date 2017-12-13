@@ -5,6 +5,7 @@ import com.hw.model.User;
 import com.hw.service.user.UserService;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Ignore
     public void successRegistration() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders

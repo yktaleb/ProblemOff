@@ -6,12 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
-import org.springframework.hateoas.mvc.BasicLinkBuilder;
 import org.springframework.stereotype.Component;
-
-import java.net.URI;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
 public class CategoryResourceProcessor implements ResourceProcessor<Resource<Category>> {

@@ -1,9 +1,8 @@
 package com.hw.service.util;
 
-import com.hw.util.security.UserAuthentication;
-import com.hw.util.security.TokenHandler;
-import com.hw.service.util.TokenAuthService;
 import com.hw.service.user.UserService;
+import com.hw.util.security.TokenHandler;
+import com.hw.util.security.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

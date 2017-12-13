@@ -2,7 +2,6 @@ package com.hw.util.security;
 
 import com.hw.model.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

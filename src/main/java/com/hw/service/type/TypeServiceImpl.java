@@ -5,7 +5,6 @@ import com.hw.model.Type;
 import com.hw.repository.CategoryRepository;
 import com.hw.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

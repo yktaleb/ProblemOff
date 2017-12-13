@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
             if (role != null) {
                 user.getRoles().add(role);
             } else {
-//                log.error("Cannot find role " + roleName);
+                System.out.println();
             }
         });
     }
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
     public void changePassword(HttpServletRequest request,
                                String currentPassword,
                                String newPassword) throws UserNotFoundException {
-        User currentUser = getCurrentUser(request);
+//        User currentUser = getCurrentUser(request);
     }
 
     @Override
