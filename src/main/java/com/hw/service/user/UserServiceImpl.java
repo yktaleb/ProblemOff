@@ -92,6 +92,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void update(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
     public void changePassword(HttpServletRequest request,
                                String currentPassword,
                                String newPassword) throws UserNotFoundException {

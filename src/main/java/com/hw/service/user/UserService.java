@@ -16,6 +16,8 @@ public interface UserService extends UserDetailsService {
 
     User getCurrentUser(HttpServletRequest request) throws UserNotFoundException;
 
+    void update(User user);
+
     void changePassword(HttpServletRequest request, String currentPassword, String newPassword) throws UserNotFoundException;
 
     String getTokenUserInfo();

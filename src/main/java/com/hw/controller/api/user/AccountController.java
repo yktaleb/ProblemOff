@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
+import java.util.Set;
 
 @RepositoryRestController
 @RequestMapping("api/account")
@@ -25,7 +27,23 @@ public class AccountController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity updateMainInformation(HttpServletRequest request,
+    public ResponseEntity getCurrentUser(HttpServletRequest request,
+                                                PersistentEntityResourceAssembler assembler) {
+        try {
+            User currentUser = userService.getCurrentUser(request);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(assembler.toResource(currentUser));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity updateGeneralInformation(HttpServletRequest request,
                                                 PersistentEntityResourceAssembler assembler) {
         try {
             User currentUser = userService.getCurrentUser(request);
@@ -53,4 +71,6 @@ public class AccountController {
                     .body(e.getMessage());
         }
     }
+
+
 }
